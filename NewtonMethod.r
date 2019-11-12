@@ -113,8 +113,7 @@ NewtonMethod <- function(x) {
   Alpha = x[1]
   Lambda = x[2]
   Phi = x[3]
-  #Pi = x[4]
-  Pi = 0
+  Pi = x[4]
 
   # funcoes auxiliar --------------------------------------------------------
   
@@ -127,7 +126,6 @@ NewtonMethod <- function(x) {
   # derivada parcial em relação a phi ---------------------------------------
   
   termo1_s = expression((1-delta)*(Pi/Q_*(1+(Lambda+Phi)*digamma(Phi)) + (1-Pi)*(1+(Lambda+Phi)*PSI1_ + Alpha*log(Lambda*t)*G_))/( Pi*(Lambda+Phi)/Q_ + (1-Pi)*(Lambda+Phi+G_) ))
-  termo1_s = 0
   termo2_s = expression(Alpha*delta*log(t))
   termo3 = expression(d*Alpha*log(Lambda))
   termo4 = expression(n*digamma(Phi))
@@ -174,7 +172,6 @@ NewtonMethod <- function(x) {
   # derivada parcial em relação a Lambda ---------------------------------------
   
   termo1_s = expression((1-delta)*( (Pi*Phi)/Q_ + (1-Pi)*(1+(Lambda+Phi)*PSI2_ + (Alpha/Lambda)*(Phi-(Lambda*t)^(Alpha*Phi))*G_))/( Pi*(Lambda+Phi)/Q_ + (1-Pi)*(Lambda+Phi+G_)))
-  termo1_s = 0
   termo2_s = expression( delta*(1+Alpha*t^Alpha*Lambda^(Alpha-1))/(Lambda+(Lambda*t)^Alpha) )
   termo3 = expression( d*Alpha*Phi/Lambda )
   termo4_s = expression( Alpha*Lambda^(Alpha-1)*delta*t^Alpha )
@@ -222,7 +219,6 @@ NewtonMethod <- function(x) {
   # derivada parcial em relação a Alpha ---------------------------------------
   
   termo1_s = expression( (1-delta)*(1-Pi)*((Lambda+Phi)*PSI3_ + log(Lambda*t)*(Phi-(Lambda*t)^Alpha)*G_)/( Pi*(Lambda+Phi)/Q_ + (1-Pi)*(Lambda+Phi+G_)) )
-  termo1_s = 0
   termo2_s = expression( Phi*delta*log(t) )
   termo3_s = expression( delta*(Lambda*t)^Alpha*log(Lambda*t)/(Lambda+(Lambda*t)^Alpha) )
   termo4 = expression( d*Phi*log(Lambda) )
@@ -305,18 +301,14 @@ NewtonMethod <- function(x) {
   
   # solucao da equacao linear ---------------------------------------------
   
-  F = t(t(c(f1, f2, f3)))
+  F = t(t(c(f1, f2, f3, f4)))
   
-  #J1 = c(j1_Alpha, j1_Lambda, j1_Phi, j1_Pi)
-  #J2 = c(j2_Alpha, j2_Lambda, j2_Phi, j2_Pi)
-  #J3 = c(j3_Alpha, j3_Lambda, j3_Phi, j3_Pi)
-  #J4 = c(j4_Alpha, j4_Lambda, j4_Phi, j4_Pi)
-  
-  J1 = c(j1_Alpha, j1_Lambda, j1_Phi)
-  J2 = c(j2_Alpha, j2_Lambda, j2_Phi)
-  J3 = c(j3_Alpha, j3_Lambda, j3_Phi)
-  
-  J = rbind(J1, J2, J3)
+  J1 = c(j1_Alpha, j1_Lambda, j1_Phi, j1_Pi)
+  J2 = c(j2_Alpha, j2_Lambda, j2_Phi, j2_Pi)
+  J3 = c(j3_Alpha, j3_Lambda, j3_Phi, j3_Pi)
+  J4 = c(j4_Alpha, j4_Lambda, j4_Phi, j4_Pi)
+
+  J = rbind(J1, J2, J3, J4)
   y = solve(J, -F)
   
   x = x + y
@@ -327,13 +319,13 @@ NewtonMethod <- function(x) {
 
 # executa o metodo --------------------------------------------------------
 
-# valor inical dos parametros
+# valores iniciais dos parametros
 Alpha0 = 1.5
 Lambda0 = 0.2
 Phi0 = 0.7
-Pi0 = 0.3
+Pi0 = 0.8
 
-x = t(t(c(Alpha0, Lambda0, Phi0)))
+x = t(t(c(Alpha0, Lambda0, Phi0, Pi0)))
 x
 
 e = 1
