@@ -319,7 +319,15 @@ NewtonMethod <- function(x) {
 
 # executa o metodo --------------------------------------------------------
 
-# valores iniciais dos parametros
+
+
+# valores iniciais dos parametros (parcialmente calculado)
+Alpha0 = 0.1 #(?)
+Lambda0 = sum(t^(-1))/n
+Phi0 = 0.7 #(?)
+Pi0 = sum(1-delta)/n
+
+# valores iniciais dos parametros (chute)
 Alpha0 = 1.5
 Lambda0 = 0.2
 Phi0 = 0.7
