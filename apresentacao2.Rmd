@@ -1,0 +1,58 @@
+---
+title: "Análise Descritiva"
+author: "Mestrado MECAI"
+date: "13/09/2019"
+output: 
+  beamer_presentation:
+    theme: "CambridgeUS"
+    colortheme: "beaver"
+    fonttheme: "professionalfonts"
+---
+
+
+
+```{r, results="hide", message = FALSE, warning = FALSE, include = FALSE}
+
+# Pacotes -----------------------------------------------------------------
+
+library(readxl)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(extrafont)
+library(ggthemes)
+library(gridExtra)
+library(hrbrthemes)
+require(tm)
+require(tidyverse)
+require(lubridate)
+require(RColorBrewer)
+require(SnowballC)
+require(wordcloud)
+library(DT)
+library(pander)
+
+
+# Bases -------------------------------------------------------------------
+
+setwd("Bases")
+amb <- readxl::read_xlsx('ambulatorio.xlsx')
+int <- readxl::read_xlsx('internacao.xlsx')
+crn <- readxl::read_xlsx('cronicos.xlsx')
+
+```
+
+## Análise Descritiva
+```{r, message = FALSE, warning = FALSE, echo = FALSE, fig.align="center",  fig.height=2.8, fig.width=4.2}
+
+amb_proc <- amb %>% 
+  dplyr::group_by(IdPessoa, dsProcedimento) %>%
+  dplyr::summarise(n = n())
+
+amp_sexo_proc <- amb %>%
+  dplyr::select(c(cdIndicadorSexoPessoa, dsClassProcedimento))
+
+plot(table(amp_sexo_proc),col=c(" lightblue "), main ="Sexo e Procedimentos", xlab="Sexo", ylab="Procedimento", las = 1)
+
+
+```

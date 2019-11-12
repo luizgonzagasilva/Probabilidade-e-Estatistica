@@ -1,0 +1,23 @@
+---
+title: "Análise Descritiva"
+author: "Mestrado MECAI"
+date: "27/09/2019"
+output:
+  beamer_presentation:
+    colortheme: beaver
+    fonttheme: professionalfonts
+    theme: CambridgeUS
+  slidy_presentation: default
+---
+
+## Empresa
+
+
+
+## Análise Descritiva
+```{r pander1, message = FALSE, warning = FALSE, echo = FALSE, fig.align="center",  fig.height=2.0, fig.width=3.2}
+library(pander)
+load("C:/Users/lzjr/Google Drive/Mestrado/ProbabilidadeEstatistica/RStudio/Gráficos/dur_int.RData")
+pander(x)
+
+```
