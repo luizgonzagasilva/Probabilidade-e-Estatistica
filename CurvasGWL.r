@@ -5,16 +5,18 @@ library(LindleyR)
 library(GoFKernel)
 
 # valores do parametros
-t = 1:100/10
-Alpha = 0.7771233
-Lambda = 1.0553040
-Phi = 1.1809489
-Pi = 0.5176842
+t = 1:300/10
+Alpha = 1
+Lambda = 0.9
+Phi = 0.9
+Pi = 0.4
 
 # Densidade Distribution Function (DF) -------------------------------------------------------
 func_f <- function(t, Alpha, Lambda, Phi){
-  (1-Pi)*Alpha*Lambda^(Alpha*Phi)*t^(Alpha*Phi-1)*(Lambda+(Lambda*t)^Alpha)*exp(-(Lambda*t)^Alpha)/(Lambda+Phi)*gamma(Phi)
+  (1-Pi)*Alpha*Lambda^(Alpha*Phi)*t^(Alpha*Phi-1)*(Lambda+(Lambda*t)^Alpha)*exp(-(Lambda*t)^Alpha)/((Lambda+Phi)*gamma(Phi))
 }
+
+#lines(t, func_f(t, Alpha, Lambda, Phi), col="blue", lwd=2)
 
 plot(t, func_f(t, Alpha, Lambda, Phi), type="l", col="red", lwd=2, xlab="time (t)", ylab="f(t)", main="DF")
 

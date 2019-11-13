@@ -62,6 +62,49 @@ length(names(dados))
 
 names(dados) <- c('event','os','disease','site','age_ini','gender','sample_type')
 
+
+dados$disease <- NULL
+dados$age_ini <- NULL
+dados$gender <- NULL
+dados$sample_type <- NULL
+
+
+# Mama
+ds_mama = dados[(dados$site=="Breast" & !is.na(dados$os)),]
+
+# Rim
+ds_rim = dados[(dados$site=="Kidney"  & !is.na(dados$os)),]
+
+# Pulmão
+ds_pulmao = dados[(dados$site=="Lung" & !is.na(dados$os)),]
+
+
+c1 <- ds_mama$os/365
+delta1 <- ds_mama$event
+
+c2 <- ds_rim$os/365
+delta2 <- ds_rim$event
+
+c3 <- ds_pulmao$os/365
+delta3 <- ds_pulmao$event
+
+
+
+tabela <- data.frame(c1 = round(ds_mama$os/365), delta1 = delta1)
+write.csv(tabela, "mama.csv", row.names = FALSE)
+
+tabela <- data.frame(c2 = round(ds_rim$os/365), delta2 = delta2)
+write.csv(tabela, "rim.csv", row.names = FALSE)
+
+tabela <- data.frame(c3 = round(ds_pulmao$os/365), delta3 = delta3)
+write.csv(tabela, "pulmao.csv", row.names = FALSE)
+
+
+
+
+ds_mama$disease <- 
+
+
 # dados do problema
 
 dados = dados[!is.na(dados$os), ]
@@ -76,7 +119,7 @@ d = sum(delta)
 
 summary(dados)
 
-
+hist(t,freq=FALSE)
 
 # Q() regularized gamma function and G() --------------------------------------------
 Q <- function(a,b){
@@ -322,16 +365,29 @@ NewtonMethod <- function(x) {
 
 
 # valores iniciais dos parametros (parcialmente calculado)
-Alpha0 = 0.1 #(?)
-Lambda0 = sum(t^(-1))/n
-Phi0 = 0.7 #(?)
-Pi0 = sum(1-delta)/n
+#Alpha0 = 0.1 #(?)
+#Lambda0 = sum(t^(-1))/n
+#Phi0 = 0.7 #(?)
+#Pi0 = sum(1-delta)/n
 
-# valores iniciais dos parametros (chute)
-Alpha0 = 1.5
-Lambda0 = 0.2
-Phi0 = 0.7
-Pi0 = 0.8
+# valores iniciais dos parametros (chute 1)
+#Alpha0 = 1.5
+#Lambda0 = 0.2
+#Phi0 = 0.7
+#Pi0 = 0.8
+
+
+# valores iniciais dos parametros (chute 2)
+#Alpha0 = 0.1
+#Lambda0 = 0.1
+#Phi0 = 0.1
+#Pi0 = 0.2
+
+# valores iniciais dos parametros (chute 3)
+Alpha0 = 0.9
+Lambda0 = 0.9
+Phi0 = 0.9
+Pi0 = 0.9
 
 x = t(t(c(Alpha0, Lambda0, Phi0, Pi0)))
 x
