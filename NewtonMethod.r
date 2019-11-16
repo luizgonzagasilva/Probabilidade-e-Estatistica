@@ -100,13 +100,7 @@ tabela <- data.frame(c3 = round(ds_pulmao$os/365), delta3 = delta3)
 write.csv(tabela, "pulmao.csv", row.names = FALSE)
 
 
-
-
-ds_mama$disease <- 
-
-
 # dados do problema
-
 dados = dados[!is.na(dados$os), ]
 dados = dados[dados$os>0, ]
 dados$t = dados$os/365
